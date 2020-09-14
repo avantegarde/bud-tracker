@@ -2,7 +2,7 @@
   <div id="app">
     <Nav />
     <div v-if="crops" class="row justify-content-center journal-list">
-        <crop-item v-for="(crop, index) in orderedCrops" v-bind:crop="crop" v-bind:index="index" :key="crop.id"></crop-item>
+        <crop-item v-for="(crop, index) in crops" v-bind:crop="crop" v-bind:index="index" :key="crop.id"></crop-item>
         <!-- START: Add Crop Modal --->
         <div class="journal-item">
           <button class="text-icon new-crop morph rounded" v-b-modal.add-crop>+ <span>New Crop</span></button>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import _ from 'lodash';
+//import _ from 'lodash';
 import Nav from '@/components/Nav.vue'
 import CropItem from '@/components/CropItem.vue'
 import ModalCreateCrop from '@/components/ModalCreateCrop.vue'
@@ -32,13 +32,13 @@ export default {
     }
   },
   firestore: {
-    crops: db.collection('crops'),
+    crops: db.collection('crops').orderBy('startDate', 'desc')
   },
-  computed: {
+  /*computed: {
     orderedCrops: function () {
       return _.orderBy(this.crops, 'startDate', 'desc')
     }
-  },
+  },*/
   components: {
     Nav,
     CropItem,
