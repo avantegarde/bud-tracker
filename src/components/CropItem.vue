@@ -1,24 +1,29 @@
 <template>
   <div class="journal-item morph rounded">
     <h1 class="title">{{ crop.name }}</h1>
-    <p><strong>Age:</strong> {{ getDisplayAge(crop.startDate, 'weeks') }}</p>
-    <p><strong>FD:</strong> {{ getDisplayAge(crop.startDate, 'days') }}</p>
+    <div v-if="crop.harvested === 'yes'">
+      <h5><b-icon-check></b-icon-check> Harvested!</h5>
+      <p><strong>Age:</strong> {{ getFinalAge(crop.startDate, crop.harvestDate, 'weeks') }}</p>
+      <p><strong>FD:</strong> {{ getFinalAge(crop.startDate, crop.harvestDate, 'days') }}</p>
+      <p><strong>Total Weight:</strong> {{ crop.totalWeight }}g</p>
+    </div>
+    <div v-else>
+      <p><strong>Age:</strong> {{ getDisplayAge(crop.startDate, 'weeks') }}</p>
+      <p><strong>FD:</strong> {{ getDisplayAge(crop.startDate, 'days') }}</p>
+    </div>
 
     <div>
-      <b-button variant="danger" v-b-modal="crop.id"><b-icon-trash></b-icon-trash></b-button>
-      <b-button variant="success"><b-icon-check></b-icon-check></b-button>
-      <b-button><b-icon-file-text></b-icon-file-text></b-button>
-      <modal-delete-crop :crop="crop" />
+      <b-button v-b-modal="crop.id" :crop="crop" ><b-icon-file-text></b-icon-file-text></b-button>
+      <modal-edit-crop :crop="crop" />
+      <!-- <b-button variant="danger" v-b-modal="crop.id"><b-icon-trash></b-icon-trash></b-button> -->
+      <!-- <modal-delete-crop :crop="crop" /> -->
     </div>
-    
-    <!-- <h1>Shiskaberry #2</h1>
-    <p><strong>Age:</strong> {{ getDisplayAge('2020-07-17', 'weeks') }}</p>
-    <p><strong>FD:</strong> {{ getDisplayAge('2020-07-17', 'days') }}</p> -->
   </div>
 </template>
 
 <script>
-import ModalDeleteCrop from '@/components/ModalDeleteCrop.vue'
+//import ModalDeleteCrop from '@/components/ModalDeleteCrop.vue'
+import ModalEditCrop from '@/components/ModalEditCrop.vue'
 
 export default {
   props: ['crop', 'index'],
@@ -37,9 +42,24 @@ export default {
       }
       return display;
     },
+    getFinalAge(start, end, format){
+      var startDate = this.$moment(start);
+      var endDate = this.$moment(end);
+      var display = '';
+      if(format === 'days') {
+        display = endDate.diff(startDate, 'days');
+      } else if (format === 'weeks') {
+        display = endDate.diff(startDate, 'weeks', true);
+        display = Math.floor(endDate.diff(startDate, 'weeks')) + " weeks, " + endDate.diff(startDate, 'days')%7 + " days";
+      } else {
+        display = endDate.diff(startDate, 'days');
+      }
+      return display;
+    },
   },
   components: {
-    ModalDeleteCrop
+    //ModalDeleteCrop,
+    ModalEditCrop
   }
 }
 </script>

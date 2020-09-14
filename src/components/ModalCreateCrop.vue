@@ -6,9 +6,10 @@
         <input type="date" v-model="startDate" placeholder="startDate" class="input" required>
         <input type="number" v-model="flowerWeeks" placeholder="# Flower Weeks" class="input" required>
         <hr>
-        <input type="date" v-model="notes.date" placeholder="Note Date" class="input" required>
+        <h5>Notes:</h5>
+        <input type="date" v-model="notes.date" placeholder="Note Date" class="input">
         <br>
-        <textarea v-model="notes.note" placeholder="Notes" class="input" required></textarea>
+        <textarea v-model="notes.note" placeholder="Notes" class="input"></textarea>
         <hr>
         <b-button type="submit" class="button">Add New Crop</b-button>
       </form>
@@ -41,10 +42,10 @@ export default {
         name: name,
         startDate: startDate,
         flowerWeeks: flowerWeeks,
-        notes: [notes],
+        notes: notes.note?[notes]:[],
         harvested: 'false',
+        harvestDate: '',
         totalWeight: '',
-        totalDays: '',
       }
       db.collection("crops").add(doc).then(() => {
         // Clear form values
