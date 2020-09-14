@@ -2,7 +2,7 @@
   <div id="app">
     <Nav />
     <div v-if="crops" class="row justify-content-center journal-list">
-        <crop-item v-for="(crop, index) in crops" v-bind:crop="crop" v-bind:index="index" :key="index"></crop-item>
+        <crop-item v-for="(crop, index) in crops" v-bind:crop="crop" v-bind:index="index" :key="crop.id"></crop-item>
         <!-- START: Add Crop Modal --->
         <div class="journal-item">
           <button class="text-icon new-crop morph rounded" v-b-modal.add-crop>+ <span>New Crop</span></button>
