@@ -5,7 +5,10 @@
         <crop-item v-for="(crop, index) in crops" v-bind:crop="crop" v-bind:index="index" :key="crop.id"></crop-item>
         <!-- START: Add Crop Modal --->
         <div class="journal-item morph rounded">
-          <button class="text-icon new-crop" v-b-modal.add-crop>+ <span>New Crop</span></button>
+          <button class="text-icon new-crop" v-b-modal.add-crop>
+            <span class="plus">+</span>
+            <span class="text">New Crop</span>
+          </button>
           <modal-create-crop />
         </div>
         <!-- END: Add Crop Modal --->
