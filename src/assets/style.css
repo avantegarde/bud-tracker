@@ -231,10 +231,18 @@ input[type="checkbox"].ios-checkbox:checked + label:after {
 .modal-content {
   text-align: center;
 }
+.modal-content form {
+  max-width: 100%;
+  overflow: hidden;
+}
 .modal-content form label {
   width: 100px;
-  margin-right: 10px;
+  margin: 0 10px 15px 0;
   text-align: right;
+}
+.modal-content form input {
+  width: 175px;
+  margin-bottom: 15px;
 }
 .modal-content form .custom-radio label {
   margin: 0;
@@ -242,6 +250,7 @@ input[type="checkbox"].ios-checkbox:checked + label:after {
 .modal-content form .harvested-radio {
   display: inline-block;
   width: 175px;
+  margin-bottom: 25px;
 }
 .modal-content form .harvested-radio label {
   width: auto;
@@ -257,7 +266,7 @@ input[type="checkbox"].ios-checkbox:checked + label:after {
     margin-bottom: 10px;
   }
   .modal-content form .harvested-radio {
-    margin-bottom: 10px;
+    margin-bottom: 25px;
   }
   .modal-content form input[type="radio"] {
     margin-bottom: 0;
