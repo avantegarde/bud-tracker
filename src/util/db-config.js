@@ -1,6 +1,9 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-
+/**
+ * Input your firebase/firestore app credentials below
+ * and rename this file to db.js
+ */
 const configOptions = {
   apiKey: "API_KEY",
   authDomain: "PROJECT_ID.firebaseapp.com",
