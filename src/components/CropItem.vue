@@ -1,28 +1,29 @@
 <template>
-  <div class="journal-item morph rounded">
+  <div class="journal-item morph rounded" :class="crop.harvested?'harvested':''">
     <h1 class="title">{{ crop.name }}</h1>
     <div v-if="crop.harvested === 'yes'">
-      <h5><b-icon-check></b-icon-check> Harvested!</h5>
-      <p><strong>Age:</strong> {{ getFinalAge(crop.startDate, crop.harvestDate, 'weeks') }}</p>
-      <p><strong>FD:</strong> {{ getFinalAge(crop.startDate, crop.harvestDate, 'days') }}</p>
-      <p><strong>Total Weight:</strong> {{ crop.totalWeight }}g</p>
+      <h5 class="harvested"><b-icon-check></b-icon-check> Harvested!</h5>
+      <ul>
+        <li><strong>Age:</strong> {{ getFinalAge(crop.startDate, crop.harvestDate, 'weeks') }}</li>
+        <li><strong>FD:</strong> {{ getFinalAge(crop.startDate, crop.harvestDate, 'days') }}</li>
+        <li><strong>Total Weight:</strong> {{ crop.totalWeight }}g</li>
+      </ul>
     </div>
     <div v-else>
-      <p><strong>Age:</strong> {{ getDisplayAge(crop.startDate, 'weeks') }}</p>
-      <p><strong>FD:</strong> {{ getDisplayAge(crop.startDate, 'days') }}</p>
+      <ul>
+        <li><strong>Age:</strong> {{ getDisplayAge(crop.startDate, 'weeks') }}</li>
+        <li><strong>FD:</strong> {{ getDisplayAge(crop.startDate, 'days') }}</li>
+      </ul>
     </div>
 
-    <div>
-      <b-button v-b-modal="crop.id" :crop="crop" ><b-icon-file-text></b-icon-file-text></b-button>
+    <div class="edit-crop-wrap">
+      <b-button v-b-modal="crop.id" :crop="crop" class="edit-crop morph inset" ><b-icon-file-text></b-icon-file-text></b-button>
       <modal-edit-crop :crop="crop" />
-      <!-- <b-button variant="danger" v-b-modal="crop.id"><b-icon-trash></b-icon-trash></b-button> -->
-      <!-- <modal-delete-crop :crop="crop" /> -->
     </div>
   </div>
 </template>
 
 <script>
-//import ModalDeleteCrop from '@/components/ModalDeleteCrop.vue'
 import ModalEditCrop from '@/components/ModalEditCrop.vue'
 
 export default {
@@ -58,19 +59,7 @@ export default {
     },
   },
   components: {
-    //ModalDeleteCrop,
     ModalEditCrop
   }
 }
 </script>
-<style scoped>
-.journal-item > a {
-  display: block;
-}
-.journal-item .title {
-  display: block;
-  width: 100%;
-  font-size: 20px;
-  line-height: 22px;
-}
-</style>

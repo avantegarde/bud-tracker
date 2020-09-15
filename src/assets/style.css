@@ -17,13 +17,13 @@ html {
   font-family: 'Open Sans', 'Source Sans Pro', Roboto, 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Myriad Pro', 'Segoe UI', Myriad, Helvetica, 'Lucida Grande', 'DejaVu Sans Condensed', 'Liberation Sans', 'Nimbus Sans L', Tahoma, Geneva, Arial, sans-serif;
   -webkit-text-size-adjust: 100%;
   background: #ebecf0;
-  color: #000000;
+  color: #222222;
 }
 body {
   margin: 0;
   padding: 0;
   background: #ebecf0;
-  color: #000000;
+  color: #222222;
 }
 a,
 a:visited {
@@ -135,6 +135,7 @@ input[type="checkbox"].ios-checkbox:checked + label:after {
   justify-content: center;
   width: 50px;
   height: 50px;
+  border: none;
   border-radius: 5px;
   font-size: 24px;
   text-align: center;
@@ -147,18 +148,75 @@ input[type="checkbox"].ios-checkbox:checked + label:after {
   background-image: linear-gradient(90deg, #22ff82, #21bdff, #5433ff);
 }
 /*--- Journal Items ---*/
+.journal-list {
+  display: flex;
+  flex-wrap: wrap;
+}
 .journal-item {
   width: 250px;
   height: 250px;
   margin: 15px;
+  padding: 15px;
+  position: relative;
+}
+.journal-item.harvested .harvested {
+  display: block;
+  padding: 0;
+  font-size: 18px;
+  line-height: 20px;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(135deg, #11b95a, #11b95a, #22ff82);
+}
+.journal-item.harvested .harvested .bi-check {
+  display: inline-block;
+  font-size: 28px;
+  color: #11b95a;
+  vertical-align: middle;
+  position: relative;
+  bottom: 2px;
+  margin-left: -10px;
+}
+.journal-item .title {
+  display: block;
+  width: 100%;
+  font-size: 20px;
+  line-height: 22px;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(135deg, #00FDF1, #5433ff, #E400F7);
+}
+.journal-item ul {
+  text-align: left;
+}
+.journal-item .edit-crop-wrap {
+  display: block;
+  width: 100%;
+  position: absolute;
+  bottom: 10px;
+  left:0;
+  right: 0;
+  text-align: center;
+}
+.journal-item button.edit-crop {
+  color: #222222 !important;
+  border: none !important;
+}
+.journal-item button.edit-crop:active,
+.journal-item button.edit-crop:focus {
+  box-shadow: 0.1em 0.1em 5px 0.1em rgba(130, 138, 145, 0.5) !important;
 }
 /* New Crop */
 .text-icon.new-crop {
   flex-wrap: wrap;
-  width: 250px;
-  height: 250px;
+  width: 100%;
+  height: 100%;
   font-size: 150px;
-  line-height: 115px;
+  line-height: 75px;
+  border: none !important;
+  outline: none !important;
 }
 .text-icon.blue-green {
   background-image: linear-gradient(90deg, #22ff82, #21bdff, #5433ff);
@@ -168,4 +226,94 @@ input[type="checkbox"].ios-checkbox:checked + label:after {
   font-size: 17px;
   line-height: 18px;
   margin-bottom: 20px;
+}
+/* Modal Content */
+.modal-content {
+  text-align: center;
+}
+.modal-content form label {
+  width: 100px;
+  margin-right: 10px;
+  text-align: right;
+}
+.modal-content form .custom-radio label {
+  margin: 0;
+}
+.modal-content form .harvested-radio {
+  display: inline-block;
+  width: 175px;
+}
+.modal-content form .harvested-radio label {
+  width: auto;
+  margin: 0;
+}
+@media screen and (max-width: 350px) {
+  .modal-content form label {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+  }
+  .modal-content form input {
+    margin-bottom: 10px;
+  }
+  .modal-content form .harvested-radio {
+    margin-bottom: 10px;
+  }
+  .modal-content form input[type="radio"] {
+    margin-bottom: 0;
+  }
+}
+/* Notes */
+.notes .note {
+  display: block;
+  width: 100%;
+  clear: both;
+}
+.notes .note:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.notes .note {
+  display: block;
+  margin: 0 0 5px 0;
+  padding: 5px;
+  border-top: 1px solid #cccccc;
+  text-align: left;
+}
+.notes .note .date {
+  display: block;
+  width: 125px;
+  margin: 0;
+  padding: 0;
+  float: left;
+  font-size: 16px;
+  line-height: 18px;
+}
+.notes .note .content {
+  display: block;
+  width: calc(100% - 125px);
+  margin: 0;
+  padding: 0;
+  float: left;
+  font-size: 16px;
+  line-height: 18px;
+}
+#new-note form {
+  padding: 10px 0 0 0;
+}
+@media screen and (max-width: 400px) {
+  .notes .note {
+    text-align: center;
+  }
+  .notes .note .date {
+    width: 100%;
+    margin: 0 0 10px 0;
+    float: none;
+  }
+  .notes .note .content {
+    width: 100%;
+    margin: 0;
+    float: none;
+  }
 }

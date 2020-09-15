@@ -36,4 +36,9 @@ export default {
   margin: 0;
   padding: 0;
 }
+@media screen and (max-width: 500px) {
+#nav h1 {
+  width: 75px;
+}
+}
 </style>

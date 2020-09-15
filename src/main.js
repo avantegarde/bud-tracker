@@ -1,7 +1,7 @@
 import Vue from 'vue'
+// Moment
 import moment from "moment";
 import VueMomentJS from "vue-momentjs";
-import App from './App.vue'
 Vue.use(VueMomentJS, moment);
 //Bootstrap
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
@@ -14,6 +14,8 @@ import './assets/style.css'
 // Firestore
 import { firestorePlugin } from 'vuefire'
 Vue.use(firestorePlugin)
+// Main Template
+import App from './App.vue'
 
 Vue.config.productionTip = false
 

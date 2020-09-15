@@ -2,8 +2,13 @@
   <div>
     <b-modal id="add-crop" title="Add a New Crop" hide-footer>
       <form @submit.prevent="addCrop(name, startDate, flowerWeeks, notes)">
+        <label>Name:</label>
         <input type="text" v-model="name" placeholder="Strain Name" class="input" required>
+        <br>
+        <label>Start Date:</label>
         <input type="date" v-model="startDate" placeholder="startDate" class="input" required>
+        <br>
+        <label>Est. Weeks:</label>
         <input type="number" v-model="flowerWeeks" placeholder="# Flower Weeks" class="input" required>
         <hr>
         <h5>Notes:</h5>
@@ -11,7 +16,7 @@
         <br>
         <textarea v-model="notes.note" placeholder="Notes" class="input"></textarea>
         <hr>
-        <b-button type="submit" class="button">Add New Crop</b-button>
+        <b-button type="submit" variant="success">Add New Crop</b-button>
       </form>
     </b-modal>
   </div>

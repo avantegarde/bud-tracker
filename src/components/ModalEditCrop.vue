@@ -1,6 +1,12 @@
 <template>
   <div>
     <b-modal :id="crop.id" title="Edit Crop" scrollable hide-footer>
+      <b-alert :show="alertSuccess" variant="success" @dismissed="alertSuccess=0" @dismiss-count-down="successCountDown" fade>
+      Changes Saved.
+      </b-alert>
+      <b-alert :show="alertError" variant="danger" @dismissed="alertError=0" @dismiss-count-down="errorCountDown" fade>
+      Error saving crop.
+      </b-alert>
 
       <form @submit.prevent="editCrop(crop.id, name, startDate, flowerWeeks, harvested, harvestDate, totalWeight)">
         <label>Name:</label>
@@ -9,34 +15,33 @@
         <label>Start Date:</label>
         <input type="date" v-model="startDate" placeholder="startDate" class="input" required>
         <br>
-        <label>Estimate Flower Weeks:</label>
+        <label>Est. Weeks:</label>
         <input type="number" v-model="flowerWeeks" placeholder="# Flower Weeks" class="input" required>
         <br>
-        <b-form-group label="Harvested:">
-          <b-form-radio-group inline v-model="harvested" name="harvested">
-            <b-form-radio value="yes">Yes</b-form-radio>
-            <b-form-radio value="no">No</b-form-radio>
-          </b-form-radio-group>
-        </b-form-group>
-        
+        <label>Harvested:</label>
+        <b-form-radio-group inline v-model="harvested" name="harvested" class="harvested-radio">
+          <b-form-radio value="yes">Yes</b-form-radio>
+          <b-form-radio value="no">No</b-form-radio>
+        </b-form-radio-group>
+        <br>
         <b-form-group v-if="harvested === 'yes'">
           <label>Harvest Date:</label>
           <input type="date" v-model="harvestDate" placeholder="harvestDate" class="input">
           <br>
           <label>Total Weight:</label>
           <input type="number" v-model="totalWeight" placeholder="Total Weight" class="input">
-          <span>grams</span>
         </b-form-group>
-        <b-button type="submit" class="button">Update Info</b-button>
+        <b-button type="submit" class="button">Save</b-button>
       </form>
       <hr>
 
       <div class="notes" v-if="crop.notes">
         <h4>Notes:</h4>
-        <div v-for="(note, index) in crop.notes" :key="index">
-          {{note.date}}
-          <br>
-          {{note.note}}
+        <div v-for="(note, index) in crop.notes" :key="index" class="note">
+          <h6 class="date">{{note.date}}</h6>
+          <div class="content">
+            {{note.note}}
+          </div>
         </div>
         <hr>
         <b-button v-b-toggle.new-note>
@@ -49,7 +54,7 @@
             <br>
             <textarea v-model="newNote.note" placeholder="Notes" class="input" required></textarea>
             <br>
-            <button type="submit" class="button">Add Note</button>
+            <b-button type="submit" variant="success">Add Note</b-button>
           </form>
         </b-collapse>
       </div>
@@ -83,6 +88,10 @@ export default {
         date: this.today(),
         note: ''
       },
+      alertSuccess: 0,
+      alertError: 0,
+      dismissSecs: 3,
+      dismissCountDown: 0
     }
   },
   methods: {
@@ -96,10 +105,11 @@ export default {
         totalWeight: totalWeight,
       }
       db.collection("crops").doc(id).set(data, { merge: true }).then(() => {
-        console.log("Document successfully written!");
-        //this.hideModal('add-crop');
+        //console.log("Document successfully written!");
+        this.showSuccessAlert();
       }).catch((error) => {
-        console.error("Error writing document: ", error);
+        //console.error("Error writing document: ", error);
+        this.showErrorAlert(error);
       });
     },
     addNote (id, notes, newNote) {
@@ -134,6 +144,18 @@ export default {
     hideModal(id) {
       this.$bvModal.hide(id);
     },
+    successCountDown(alertSuccess) {
+      this.alertSuccess = alertSuccess
+    },
+    showSuccessAlert() {
+      this.alertSuccess = this.dismissSecs
+    },
+    errorCountDown(alertError) {
+      this.alertError = alertError
+    },
+    showErrorAlert() {
+      this.alertError = this.dismissSecs
+    }
   }
 }
 </script>
